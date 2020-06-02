@@ -32,6 +32,9 @@ class View
 
     public function render($data)
     {
+//        var_dump($data);
+        if (is_array($data)) extract($data);
+
         $viewFile = APP . "/views/{$this->prefix}{$this->controller}/{$this->view}.php";
 
         if (is_file($viewFile))
@@ -55,6 +58,14 @@ class View
                 throw new \Exception("Не найден шаблон {$this->layout}", 500);
             }
         }
+    }
+
+    public function getMeta()
+    {
+        $output = '<title>' . $this->meta['title'] . '</title>' . PHP_EOL;
+        $output .= '<meta nemae="description" content="' . $this->meta['desc'] . '">' . PHP_EOL;
+        $output .= '<meta nemae="keywords" content="' . $this->meta['keywords'] . '">' . PHP_EOL;
+        return $output;
     }
 
 
